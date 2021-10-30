@@ -1,0 +1,36 @@
+CREATE TABLE users (
+	user_id INTEGER PRIMARY KEY AUTOINCREMENT, 
+	username text NOT NULL, 
+	password text NOT NULL, 
+	money_balance REAL NOT NULL
+);
+
+CREATE TABLE stocks (
+	stock_id INTEGER PRIMARY KEY AUTOINCREMENT,
+	stock_symbol TEXT NOT NULL
+);
+
+CREATE TABLE candles (
+	candle_id INTEGER PRIMARY KEY AUTOINCREMENT,
+	stock_id INTEGER NOT NULL, 
+	beginning_time TEXT NOT NULL,
+	ending_time TEXT NOT NULL,
+	open REAL NOT NULL,
+	close REAL NOT NULL,
+	low REAL NOT NULL,
+	high REAL NOT NULL,
+
+	FOREIGN KEY(stock_id) REFERENCES stocks(stock_id)
+);
+
+CREATE TABLE transactions (
+	transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
+	user_id INTEGER NOT NULL,
+	stock_id INTEGER NOT NULL,
+	price REAL NOT NULL,
+	count INTEGER NOT NULL,
+	timestamp TEXT NOT NULL,
+
+	FOREIGN KEY(user_id) REFERENCES users(user_id)
+	FOREIGN KEY(stock_id) REFERENCES stocks(stock_id)	
+);
